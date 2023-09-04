@@ -7,6 +7,10 @@
   "scripts": {
     "build": "vite build",
     "dev": "nodemon",
+    "pack": "cross-env NODE_ENV=production run-p pack:*",
+    "pack:zip": "rimraf extension.zip && jszip-cli add dist/* -o ./extension.zip",
+    "pack:crx": "crx pack dist -o ./extension.crx",
+    "pack:xpi": "cross-env WEB_EXT_ARTIFACTS_DIR=./ web-ext build --source-dir ./dist --filename extension.xpi --overwrite-dest",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -27,6 +31,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.5",
     "@egoist/tailwindcss-icons": "^1.1.0",
+    "@ffflorian/jszip-cli": "^3.4.1",
     "@iconify-json/carbon": "^1.1.19",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
@@ -37,17 +42,22 @@
     "@unocss/reset": "^0.55.0",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.15",
+    "cross-env": "^7.0.3",
+    "crx": "^5.0.1",
     "eslint": "^8.45.0",
     "fs-extra": "^11.1.1",
     "lint-staged": "^13.2.2",
     "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.29",
+    "rimraf": "^5.0.1",
     "simple-git-hooks": "^2.8.1",
     "tailwindcss": "^3.3.3",
     "tsx": "^3.12.8",
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.16.4",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "web-ext": "^7.6.2"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
