@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { consola } from 'consola/browser'
+import { consola } from 'consola'
 
 export const port = parseInt(process.env.PORT || '') || 3303
 export const r = (...args: string[]) => resolve(__dirname, '..', ...args)

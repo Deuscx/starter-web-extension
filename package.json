@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "a simple webextension starter",
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "nodemon",
