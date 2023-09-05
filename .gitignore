@@ -27,3 +27,4 @@ dist-ssr
 *.xpi
 *.zip
 *.crx
+extension/manifest.json

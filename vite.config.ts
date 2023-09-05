@@ -1,13 +1,15 @@
-import path, { resolve } from 'node:path'
+import path from 'node:path'
+import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
+
 import react from '@vitejs/plugin-react'
 import AutoImport from 'unplugin-auto-import/vite'
-import makeManifest from './scripts/manifest'
-import buildContentScript from './scripts/build-content-script'
 
-const pagesDir = resolve(__dirname, 'src/pages')
-// https://vitejs.dev/config/
-export default defineConfig({
+// import react from '@vitejs/plugin-react-swc'
+import { isDev, port, r } from './scripts/utils'
+
+export const sharedConfig: UserConfig = {
+  root: r('src'),
   resolve: {
     alias: {
       '@/': `${path.resolve(__dirname, 'src')}/`,
@@ -21,23 +23,32 @@ export default defineConfig({
         'react-router-dom',
       ],
     }),
-    makeManifest(),
-    buildContentScript(),
   ],
+}
+// https://vitejs.dev/config/
+export default defineConfig(({ command }) => ({
+  ...sharedConfig,
+  base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
+  server: {
+    port,
+    hmr: {
+      host: 'localhost',
+    },
+  },
   build: {
-    sourcemap: process.env.__DEV__ === 'true',
+    outDir: r('extension/dist'),
+    sourcemap: isDev ? 'inline' : false,
     emptyOutDir: false,
     rollupOptions: {
       input: {
-        devtools: resolve(pagesDir, 'devtools', 'index.html'),
-        panel: resolve(pagesDir, 'panel', 'index.html'),
-        background: resolve(pagesDir, 'background', 'index.ts'),
-        popup: resolve(pagesDir, 'popup', 'index.html'),
-        options: resolve(pagesDir, 'options', 'index.html'),
+        devtools: r('src/devtools/index.html'),
+        panel: r('src/panel/index.html'),
+        options: r('src/options/index.html'),
+        popup: r('src/popup/index.html'),
       },
       output: {
-        entryFileNames: chunk => `src/pages/${chunk.name}/index.js`,
+        entryFileNames: chunk => `${chunk.name}/index.js`,
       },
     },
   },
-})
+}))

@@ -12,19 +12,19 @@ export function getManifest() {
     description: pkg.description,
     action: {
       default_icon: './assets/icon.png',
-      default_popup: './src/pages/popup/index.html',
+      default_popup: './dist/popup/index.html',
     },
     options_ui: {
-      page: './src/pages/options/index.html',
+      page: './dist/options/index.html',
       open_in_tab: true,
     },
     background: isFirefox
       ? {
-          scripts: ['src/pages/background/index.js'],
+          scripts: ['dist/background/index.mjs'],
           type: 'module',
         }
       : {
-          service_worker: './src/pages/background/index.js',
+          service_worker: './dist/background/index.mjs',
         },
     icons: {
       16: './assets/icon.png',
@@ -43,13 +43,13 @@ export function getManifest() {
           '<all_urls>',
         ],
         js: [
-          'src/pages/content/index.js',
+          'dist/content/index.global.js',
         ],
       },
     ],
     web_accessible_resources: [
       {
-        resources: ['src/pages/content/style.css'],
+        resources: ['dist/content/style.css'],
         matches: ['<all_urls>'],
       },
     ],

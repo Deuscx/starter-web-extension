@@ -1,14 +1,10 @@
 import fs from 'fs-extra'
-import type { PluginOption } from 'vite'
 import { getManifest } from '../src/manifest'
-import { r } from './utils'
+import { log, r } from './utils'
 
-export default function makeManifest(): PluginOption {
-  return {
-    name: 'make-manifest',
-    buildEnd() {
-      fs.writeJSON(r('public/manifest.json'), getManifest(), { spaces: 2 })
-      // log('PRE', 'write manifest.json')
-    },
-  }
+export async function writeManifest() {
+  await fs.writeJSON(r('extension/manifest.json'), await getManifest(), { spaces: 2 })
+  log('PRE', 'write manifest.json')
 }
+
+writeManifest()
