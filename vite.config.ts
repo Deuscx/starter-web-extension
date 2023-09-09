@@ -4,12 +4,17 @@ import { defineConfig } from 'vite'
 
 import react from '@vitejs/plugin-react'
 import AutoImport from 'unplugin-auto-import/vite'
+import packageJson from './package.json'
 
 // import react from '@vitejs/plugin-react-swc'
 import { isDev, port, r } from './scripts/utils'
 
 export const sharedConfig: UserConfig = {
   root: r('src'),
+  define: {
+    __DEV__: isDev,
+    __NAME__: JSON.stringify(packageJson.name),
+  },
   resolve: {
     alias: {
       '@/': `${path.resolve(__dirname, 'src')}/`,
