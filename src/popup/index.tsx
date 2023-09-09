@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import '@/popup/index.css'
 import '@/styles/global.css'
+import { StrictMode } from 'react'
 import Popup from './Popup'
 
 function init() {
@@ -8,7 +9,7 @@ function init() {
   if (!rootContainer)
     throw new Error('Can\'t find Popup root element')
   const root = createRoot(rootContainer)
-  root.render(<Popup />)
+  root.render(<StrictMode><Popup /></StrictMode>)
 }
 
 init()

@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react'
 import Options from '@/options/Options'
 import '@/styles/global.css'
 
@@ -7,7 +8,7 @@ function init() {
   if (!rootContainer)
     throw new Error('Can\'t find Options root element')
   const root = createRoot(rootContainer)
-  root.render(<Options />)
+  root.render(<StrictMode><Options /></StrictMode>)
 }
 
 init()
