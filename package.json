@@ -63,7 +63,6 @@
     "eslint": "^8.45.0",
     "fs-extra": "^11.1.1",
     "lint-staged": "^13.2.2",
-    "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.29",
     "react-refresh": "^0.14.0",
